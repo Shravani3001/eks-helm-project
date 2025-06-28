@@ -1,0 +1,23 @@
+replicaCount: 2
+image:
+   repository: shravani3001/node.js-app
+   pullPolicy: IfNotPresent
+   tag: "latest"
+service:
+   type: LoadBalancer
+   port: 80
+containerPort: 3000
+serviceAccount:
+  create: false
+ingress:
+  enabled: true
+  className: "nginx"
+  annotations: 
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  hosts:
+    - host: a8a0f6c761dfa42ddbedec63d6d5af90-1886207719.us-east-1.elb.amazonaws.com
+      paths:
+        - path: /
+          pathType: Prefix
+autoscaling:
+  enabled: false
