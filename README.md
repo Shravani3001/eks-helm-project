@@ -1,4 +1,4 @@
-# 🚀 Node.js App Deployment on AWS EKS using Terraform, Docker, Helm & NGINX Ingress
+#  Node.js App Deployment on AWS EKS using Terraform, Docker, Helm & NGINX Ingress
 
 This project demonstrates how to containerize and deploy a **Node.js application** on AWS Elastic Kubernetes Service (EKS) using:
 
@@ -10,7 +10,7 @@ This project demonstrates how to containerize and deploy a **Node.js application
 
 ---
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 eks-helm-project/
@@ -43,7 +43,7 @@ eks-helm-project/
 
 ---
 
-## 👨‍💼 Step 1: Provision Infrastructure using Terraform
+##  Step 1: Provision Infrastructure using Terraform
 
 Navigate to the `terraform/` folder and initialize Terraform:
 
@@ -52,7 +52,7 @@ cd terraform
 terraform init
 ```
 
-### ⚖️ Apply in Two Phases (Due to EKS Dependency)
+###  Apply in Two Phases (Due to EKS Dependency)
 
 #### Phase 1:
 
@@ -115,7 +115,7 @@ terraform apply
 
 ---
 
-## 💡 Step 2: Containerize the Node.js App
+##  Step 2: Containerize the Node.js App
 
 1. Navigate to the app folder:
 
@@ -134,7 +134,7 @@ docker push <your-dockerhub-username>/nodejs-app
 
 ---
 
-## ⚓ Step 3: Deploy the App Using Helm
+##  Step 3: Deploy the App Using Helm
 
 ### Install Helm
 
@@ -191,7 +191,7 @@ kubectl get svc
 
 ---
 
-## 🌐 Step 4: Install NGINX Ingress Controller
+##  Step 4: Install NGINX Ingress Controller
 
 ```bash
 helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
@@ -218,7 +218,7 @@ helm upgrade my-app ./my-app
 
 ---
 
-## 📍 Step 5: Access the App in Browser
+##  Step 5: Access the App in Browser
 
 Get your app ingress:
 
@@ -247,7 +247,7 @@ You should see:
 
 ---
 
-## 📊 Summary
+##  Summary
 
 | Component           | Tool Used                |
 | ------------------- | ------------------------ |
@@ -263,8 +263,8 @@ You should see:
 ## Author
 
 **Shravani K.**
-DevOps Enthusiast | Cloud Learner
-
+DevOps Learner
+LinkedIn: www.linkedin.com/in/shravani-k-25953828a
 
 ---
 
