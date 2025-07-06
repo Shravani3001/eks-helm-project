@@ -43,7 +43,14 @@ eks-helm-project/
 
 ---
 
-##  Step 1: Provision Infrastructure using Terraform
+##  Step 1: Clone the Repo
+
+```bash
+git clone https://github.com/Shravani3001/eks-helm-project.git
+cd eks-helm-project
+```
+
+##  Step 2: Provision Infrastructure using Terraform
 
 Navigate to the `terraform/` folder and initialize Terraform:
 
@@ -115,7 +122,7 @@ terraform apply
 
 ---
 
-##  Step 2: Containerize the Node.js App
+##  Step 3: Containerize the Node.js App
 
 1. Navigate to the app folder:
 
@@ -134,7 +141,7 @@ docker push <your-dockerhub-username>/nodejs-app
 
 ---
 
-##  Step 3: Deploy the App Using Helm
+##  Step 4: Deploy the App Using Helm
 
 ### Install Helm
 
@@ -191,7 +198,7 @@ kubectl get svc
 
 ---
 
-##  Step 4: Install NGINX Ingress Controller
+##  Step 5: Install NGINX Ingress Controller
 
 ```bash
 helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
@@ -218,7 +225,7 @@ helm upgrade my-app ./my-app
 
 ---
 
-##  Step 5: Access the App in Browser
+##  Step 6: Access the App in Browser
 
 Get your app ingress:
 
