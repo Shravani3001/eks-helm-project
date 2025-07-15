@@ -1,5 +1,7 @@
 #  Node.js App Deployment on AWS EKS using Terraform, Docker, Helm & NGINX Ingress
 
+## Project Overview
+
 This project demonstrates how to containerize and deploy a **Node.js application** on AWS Elastic Kubernetes Service (EKS) using:
 
 * ✅ **Docker** for containerizing the Node.js application
@@ -10,9 +12,65 @@ This project demonstrates how to containerize and deploy a **Node.js application
 
 ---
 
+## Tools used 
+
+| Component           | Tool Used                |
+| ------------------- | ------------------------ |
+| Infrastructure      | Terraform                |
+| Kubernetes Platform | AWS EKS                  |
+| App Deployment      | Helm                     |
+| Containerization    | Docker                   |
+| Ingress             | NGINX Ingress Controller |
+| Load Balancing      | AWS ELB                  |
+
+---
+
+## Features
+
+- Fully Automated Infrastructure using Terraform for provisioning VPC, Subnets, EKS Cluster, and Node Group on AWS.
+- Containerized Node.js App with a custom Dockerfile for consistent deployment across environments.
+- Helm-Powered Kubernetes Deployment: Simplifies app deployment and management in EKS.
+- NGINX Ingress Controller routes traffic and enables clean load-balanced access to your app.
+- AWS Load Balancer Integration for public access with high availability.
+- Clean Modular Structure separating Terraform, Docker, and Helm components for easy collaboration and scaling.
+- Multi-Step Terraform Apply logic for managing EKS auth config dynamically.
+- Production-Ready Workflow suitable for CI/CD, DevOps interviews, and real-world team setups.
+
+## How It Works
+
+This project automates the deployment of a Node.js app on a Kubernetes cluster (AWS EKS) using Terraform, Docker, Helm, and Ingress.
+
+- Terraform provisions the AWS infrastructure:
+
+  VPC, public/private subnets
+
+  EKS cluster and node group
+
+  IAM roles and networking
+
+- A Node.js app is containerized using Docker and pushed to Docker Hub.
+
+- Helm is used to deploy the app into EKS:
+
+  Helm templates generate Kubernetes YAMLs for Deployment, Service, Ingress, etc.
+
+- An NGINX Ingress Controller is installed to manage external traffic into the cluster.
+
+- AWS Load Balancer is automatically provisioned by the Ingress controller to expose the app publicly.
+
+- You access the app via the Load Balancer DNS URL, confirming successful end-to-end deployment.
+
+---
+
+## Architecture Diagram
+
+<img width="647" height="749" alt="eks-nodejs-diagram" src="https://github.com/user-attachments/assets/ddfcae18-61b8-48bc-a64b-7f94f6f538a7" />
+
+---
+
 ##  Project Structure
 
-```
+```bash
 eks-helm-project/
 ├── terraform/
 │   ├── main.tf
@@ -87,9 +145,11 @@ terraform init
 manage_aws_auth_configmap = false
 ```
 
-3. Apply:
+3. Run:
 
 ```bash
+rm -rf .terraform
+terraform init
 terraform apply
 ```
 
@@ -254,28 +314,18 @@ You should see:
 
 ---
 
-##  Summary
-
-| Component           | Tool Used                |
-| ------------------- | ------------------------ |
-| Infrastructure      | Terraform                |
-| Kubernetes Platform | AWS EKS                  |
-| App Deployment      | Helm                     |
-| Containerization    | Docker                   |
-| Ingress             | NGINX Ingress Controller |
-| Load Balancing      | AWS ELB                  |
 
 ---
 
-## Author
+## About Me
 
-**Shravani K.**
+I'm Shravani, a self-taught and project-driven DevOps engineer passionate about building scalable infrastructure and automating complex workflows.
 
-DevOps Learner
+I love solving real-world problems with tools like Terraform, Ansible, Docker, Jenkins, and AWS — and I’m always learning something new to sharpen my edge in DevOps.
 
-LinkedIn: www.linkedin.com/in/shravani-k-25953828a
-
----
+**Connect with me:**
+- LinkedIn: www.linkedin.com/in/shravani3001
+- GitHub: https://github.com/Shravani3001
 
 
 
