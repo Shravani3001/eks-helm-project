@@ -19,9 +19,9 @@ variable "min_size" {
 }
 
 variable "cluster_name" {
-    default = "eks-cluster"
+    default = "eks_cluster"
 }
 
 variable "node_group_name" {
-    default = "eks-nodes"
+    default = "eks_nodes"
 }

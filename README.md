@@ -12,6 +12,19 @@ This project demonstrates how to containerize and deploy a **Node.js application
 
 ---
 
+## Prerequisites
+
+Before running this project, ensure you have:
+
+- AWS CLI configured with access keys
+- Terraform installed
+- Docker installed and running
+- kubectl installed and configured
+- Helm installed
+- An AWS account with permissions to create VPC, EKS, IAM roles, etc.
+
+---
+
 ## Tools used 
 
 | Component           | Tool Used                |
@@ -123,7 +136,7 @@ terraform init
 
 1. In `providers.tf`, comment out the `kubernetes` provider block **AND** the `data` blocks:
 
-```hcl
+```bash
 # data "aws_eks_cluster" "cluster" {
 #   name = module.eks.cluster_name
 # }
@@ -141,15 +154,13 @@ terraform init
 
 2. In `main.tf`, set this:
 
-```hcl
+```bash
 manage_aws_auth_configmap = false
 ```
 
 3. Run:
 
 ```bash
-rm -rf .terraform
-terraform init
 terraform apply
 ```
 
@@ -157,30 +168,27 @@ terraform apply
 
 1. Uncomment the data blocks and Kubernetes provider block
 2. In `main.tf`, change this:
-
-```hcl
+```bash
 manage_aws_auth_configmap = true
 ```
 
-3. Update your kubeconfig so kubectl can access the EKS cluster:
-
-```bash
-aws eks update-kubeconfig --region us-east-1 --name eks-cluster 
-```
-
-4. Verify node group is registered:
-
-```bash
-kubectl get nodes
-```
-
-5. Apply again:
+3. Apply again:
 
 ```bash
 terraform apply
 ```
 
----
+4. Update your kubeconfig so kubectl can access the EKS cluster:
+
+```bash
+aws eks update-kubeconfig --region us-east-1 --name eks_cluster 
+```
+
+5. Verify node group is registered:
+
+```bash
+kubectl get nodes
+```
 
 ##  Step 3: Containerize the Node.js App
 
@@ -195,29 +203,11 @@ cd ../app
 3. Build and push the Docker image:
 
 ```bash
-docker build -t <your-dockerhub-username>/nodejs-app .
-docker push <your-dockerhub-username>/nodejs-app
+docker build -t your-dockerhub-username/app .
+docker push your-dockerhub-username/app
 ```
-
----
 
 ##  Step 4: Deploy the App Using Helm
-
-### Install Helm
-
-1. Download Helm and extract it
-2. Add the path to environment variables (e.g., Windows: `C:\Users\YourName\Downloads\windows-amd64`)
-3. Add path in Git Bash:
-
-```bash
-export PATH=$PATH:/c/Users/YourName/Downloads/windows-amd64
-```
-
-4. Verify:
-
-```bash
-helm version
-```
 
 ### Create a Helm Chart
 
@@ -229,80 +219,74 @@ helm create my-app
 
 This generates a Helm chart with default files.
 
-### Modify Helm YAML Files
+Edit values.yaml
 
-Update `deployment.yaml`, `service.yaml`, and `ingress.yaml` as per your app setup.
-In `values.yaml`, set:
-
-```yaml
+Update the following fields:
+```bash
 image:
-  repository: <your-dockerhub-username>/nodejs-app
+  repository: your-dockerhub-username/app
+  pullPolicy: IfNotPresent
   tag: latest
+
+service:
+  type: ClusterIP
+  port: 3000
+
+ingress:
+  enabled: true
+  className: "nginx"
+  annotations: 
+    kubernetes.io/ingress.class: nginx
+  hosts:
+    - host: ""
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+          service:
+            name: node.js-service
+            port:
+              number: 3000
 ```
 
 ### Deploy Using Helm
 
 ```bash
 helm install my-app ./my-app
-# Or upgrade if redeploying
-helm upgrade my-app ./my-app
 ```
 
-Verify:
-
+**Verify:**
 ```bash
 kubectl get pods
 kubectl get deployments
 kubectl get svc
 ```
 
----
-
 ##  Step 5: Install NGINX Ingress Controller
 
 ```bash
-helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
-helm repo update
-
 helm install ingress-nginx ingress-nginx/ingress-nginx \
   --create-namespace \
   --namespace ingress-nginx
 ```
 
-Verify ELB DNS:
-
+**Verify ELB DNS:**
 ```bash
 kubectl get svc -n ingress-nginx
 ```
 
 Look for the LoadBalancer EXTERNAL-IP (AWS ELB DNS).
 
-Then, redeploy your Helm app (after ingress controller is ready):
-
-```bash
-helm upgrade my-app ./my-app
-```
-
----
-
 ##  Step 6: Access the App in Browser
 
-Get your app ingress:
-
+**Example output:**
 ```bash
-kubectl get ingress
-```
-
-Example output:
-
-```
 NAME     HOSTS             ADDRESS                                                                   PORTS
 my-app   myapp.local       abc123456789.elb.amazonaws.com                                           80
 ```
 
-Open in browser:
-
-```
+**Open in browser:**
+```bash
 http://abc123456789.elb.amazonaws.com
 ```
 

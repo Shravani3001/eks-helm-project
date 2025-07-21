@@ -4,6 +4,8 @@ terraform/.terraform.lock.hcl
 terraform/terraform.tfstate
 terraform/terraform.tfstate.backup
 
+
 # === Helm Chart ===
 my-app/charts/
 my-app/templates/tests/
+
