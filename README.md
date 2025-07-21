@@ -165,7 +165,7 @@ manage_aws_auth_configmap = true
 3. Update your kubeconfig so kubectl can access the EKS cluster:
 
 ```bash
-aws eks --region us-east-1 --name eks-cluster update-kubeconfig
+aws eks update-kubeconfig --region us-east-1 --name eks-cluster 
 ```
 
 4. Verify node group is registered:
