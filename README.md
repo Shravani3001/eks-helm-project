@@ -324,8 +324,9 @@ I'm Shravani, a self-taught and project-driven DevOps engineer passionate about 
 I love solving real-world problems with tools like Terraform, Ansible, Docker, Jenkins, and AWS — and I’m always learning something new to sharpen my edge in DevOps.
 
 **Connect with me:**
-- LinkedIn: www.linkedin.com/in/shravani3001
-- GitHub: https://github.com/Shravani3001
 
+[LinkedIn](https://www.linkedin.com/in/shravani3001) 
+
+[GitHub](https://github.com/Shravani3001)
 
 
