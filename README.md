@@ -292,12 +292,7 @@ http://abc123456789.elb.amazonaws.com
 
 You should see:
 
-```
-🚀 Hello from Shravani's CI/CD Node.js App!
-```
-
----
-
+<img width="890" height="473" alt="eks-helm-project-output" src="https://github.com/user-attachments/assets/3fac2991-fb70-4eee-ba2e-1750709178a4" />
 
 ---
 
